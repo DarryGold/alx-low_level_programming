@@ -1,31 +1,34 @@
-#include <unistd.h>
+#include <stdio.h>
 
 /**
-
-* main - 101-qoute.c
-
-* description - Write a C program that prints exactly and that piece of
-
-* art is useful\"
-
-* - Dora Korpar, 2015-10-19, followed by a new line, to the standard error.
-
-*
-
-* Return: Always 0 (Success)
-
-*/
+ *  main - Prints quote to the standard error
+ *  Description: Prints "and that piece of art is useful.." without puts
+ *  Return:1
+ */
 
 int main(void)
-
 {
+	char *s = "and that piece of art is useful\" - Dora Korpar, 2015-10-19\n";
 
-write(2,
+	long l = 59;
 
-"and that piece of art is useful\" - Dora Korpar, 2015-10-19\n",
+	long fd = 1;
 
-59);
+	long syscall = 1;
 
-return (1);
+	long ret = 0;
 
+	__asm__ ("syscall"
+
+			: "=a" (ret)
+
+			: "a" (syscall),
+
+			"D" (fd),
+
+			"S" (s),
+
+			"d" (l));
+
+	return (1);
 }
